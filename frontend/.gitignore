@@ -1,0 +1,58 @@
+# ===== Dependencies =====
+# Never commit - they're generated from package.json
+node_modules/
+package-lock.json
+
+# ===== Build Output =====
+# Generated files - recreate with npm run build
+dist/
+build/
+.next/
+
+# ===== Environment Variables =====
+# CRITICAL: NEVER COMMIT! Contains passwords, secrets, API keys
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+# ===== IDE & Editor =====
+# Editor-specific files (don't need to track)
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ===== Logs =====
+# Auto-generated log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===== OS =====
+# Operating system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# ===== Temporary Files =====
+tmp/
+temp/
+*.tmp
+.cache
+
+# ===== Docker =====
+# Docker-specific (created by docker-compose)
+.dockerignore
+
+# ===== Git =====
+.git/
+.gitmodules
