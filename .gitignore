@@ -1,67 +1,58 @@
-# Humor Memory Game - DevOps Learning Edition
+# ===== Dependencies =====
+# Never commit - they're generated from package.json
+node_modules/
+# package-lock.json
 
-A full-stack memory card game application built as a comprehensive DevOps learning project.
+# ===== Build Output =====
+# Generated files - recreate with npm run build
+dist/
+build/
+.next/
 
-## 🎮 About the Project
+# ===== Environment Variables =====
+# CRITICAL: NEVER COMMIT! Contains passwords, secrets, API keys
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
 
-**Humor Memory Game** is a classic memory card matching game. Players flip cards to find matching pairs while keeping track of their score. The project demonstrates:
+# ===== IDE & Editor =====
+# Editor-specific files (don't need to track)
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
 
-- **Frontend**: Vanilla JavaScript/HTML/CSS interactive game
-- **Backend**: Node.js/Express REST API with session management  
-- **Database**: PostgreSQL for persistent data storage
-- **Cache**: Redis for performance optimization
+# ===== Logs =====
+# Auto-generated log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-## 🎯 DevOps Learning Objectives
+# ===== OS =====
+# Operating system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 
-This project teaches:
-- ✅ Containerization with Docker
-- ✅ Multi-container orchestration with Docker-Compose
-- ✅ Networking and service communication
-- ✅ Volume persistence and data management
-- ✅ Health checks and startup ordering
-- ✅ Environment-based configuration
+# ===== Temporary Files =====
+tmp/
+temp/
+*.tmp
+.cache
 
-## 📋 Prerequisites
+# ===== Docker =====
+# Docker-specific (created by docker-compose)
+.dockerignore
 
-### For Local Development
-- **Node.js** v18+ ([Download](https://nodejs.org/))
-- **npm** v8+
-- **PostgreSQL** 15+ ([Download](https://www.postgresql.org/download/))
-- **Redis** 7+ ([Download](https://redis.io/download))
-
-### For Docker Setup
-- **Docker Engine** 25+
-- **Docker-Compose** v2.24+
-- **Git**
-
-## 🚀 Quick Start - Local Development
-
-### 1. Clone Repository
-```bash
-git clone https://github.com/YOUR-USERNAME/humor-memory-game.git
-cd humor-memory-game
-```
-
-### 2. Setup Backend
-
-```bash
-cd backend
-npm install
-
-# Create .env file
-cat > .env << 'EOF'
-NODE_ENV=development
-PORT=3001
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=humor_memory_game
-DB_USER=gameuser
-DB_PASSWORD=gamepass123
-REDIS_HOST=localhost
-REDIS_PORT=6379
-REDIS_PASSWORD=
-JWT_SECRET=dev-secret-key
-SESSION_SECRET=dev-session-key
-API_BASE_URL=/api
-CORS_ORIGIN=http://localhost:3000
-LOG_LEVEL=debug
+# ===== Git =====
+.git/
+.gitmodules
