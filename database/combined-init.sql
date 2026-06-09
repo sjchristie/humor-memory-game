@@ -1,5 +1,6 @@
 -- Fixed Humor Memory Game Database Schema
 -- This file creates the schema and seeds data
+-- Added Added daily_challenges table and index
 
 -- Enable UUID extension for generating unique IDs
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -8,6 +9,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 DROP TABLE IF EXISTS game_matches CASCADE;
 DROP TABLE IF EXISTS games CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS daily_challenges CASCADE;
 DROP VIEW IF EXISTS leaderboard;
 
 -- Create users table
@@ -54,6 +56,14 @@ CREATE TABLE game_matches (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create daily_challenges table
+CREATE TABLE daily_challenges (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    challenge_date DATE NOT NULL UNIQUE,
+    data JSONB,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Create leaderboard view for easy querying
 CREATE OR REPLACE VIEW leaderboard AS
 SELECT 
@@ -81,6 +91,7 @@ CREATE INDEX IF NOT EXISTS idx_games_user_id ON games(user_id);
 CREATE INDEX IF NOT EXISTS idx_games_score ON games(score DESC);
 CREATE INDEX IF NOT EXISTS idx_games_completed_at ON games(completed_at);
 CREATE INDEX IF NOT EXISTS idx_game_matches_game_id ON game_matches(game_id);
+CREATE INDEX idx_daily_challenges_date ON daily_challenges(challenge_date);
 
 -- Create function to update user stats when a game is completed
 CREATE OR REPLACE FUNCTION update_user_stats()

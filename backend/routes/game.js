@@ -415,6 +415,53 @@ router.post('/complete', validateGameComplete, async (req, res) => {
 });
 
 // ========================================
+// GET DAILY CHALLENGE
+// ========================================
+
+/**
+ * GET /api/game/daily-challenge
+ * Get today's daily challenge configuration
+ */
+router.get('/daily-challenge', async (req, res) => {
+  try {
+    // Check if daily challenge is cached
+    const cachedChallenge = await redisCache.get('daily_challenge');
+
+    if (cachedChallenge) {
+      return res.json({
+        success: true,
+        challenge: cachedChallenge,
+        message: "Today's challenge is ready! 🌟",
+      });
+    }
+
+    // Generate new daily challenge
+    const challenge = GameDataGenerator.generateDailyChallenge();
+
+    // Cache until end of day
+    const now = new Date();
+    const endOfDay = new Date(now);
+    endOfDay.setHours(23, 59, 59, 999);
+    const ttl = Math.floor((endOfDay - now) / 1000);
+
+    await redisCache.set('daily_challenge', challenge, ttl);
+
+    res.json({
+      success: true,
+      challenge,
+      message: 'Fresh daily challenge generated! 🎯',
+    });
+  } catch (error) {
+    console.error('❌ Error getting daily challenge:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get daily challenge',
+      message: 'Daily challenge is taking a break! 😴',
+    });
+  }
+});
+
+// ========================================
 // GET GAME DETAILS
 // ========================================
 
@@ -470,53 +517,6 @@ router.get('/:gameId', async (req, res) => {
       success: false,
       error: 'Failed to get game details',
       message: "Couldn't load game details! 📱",
-    });
-  }
-});
-
-// ========================================
-// GET DAILY CHALLENGE
-// ========================================
-
-/**
- * GET /api/game/daily-challenge
- * Get today's daily challenge configuration
- */
-router.get('/daily-challenge', async (req, res) => {
-  try {
-    // Check if daily challenge is cached
-    const cachedChallenge = await redisCache.get('daily_challenge');
-
-    if (cachedChallenge) {
-      return res.json({
-        success: true,
-        challenge: cachedChallenge,
-        message: "Today's challenge is ready! 🌟",
-      });
-    }
-
-    // Generate new daily challenge
-    const challenge = GameDataGenerator.generateDailyChallenge();
-
-    // Cache until end of day
-    const now = new Date();
-    const endOfDay = new Date(now);
-    endOfDay.setHours(23, 59, 59, 999);
-    const ttl = Math.floor((endOfDay - now) / 1000);
-
-    await redisCache.set('daily_challenge', challenge, ttl);
-
-    res.json({
-      success: true,
-      challenge,
-      message: 'Fresh daily challenge generated! 🎯',
-    });
-  } catch (error) {
-    console.error('❌ Error getting daily challenge:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to get daily challenge',
-      message: 'Daily challenge is taking a break! 😴',
     });
   }
 });
