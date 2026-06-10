@@ -107,7 +107,7 @@ Initialized empty Git repository in /home/developer/humor-memory-game/.git/
 
 ### Step 3: Create `.gitignore`
 
-This prevents secrets, generated artifacts, and OS files from ever being committed.
+This prevents secrets, generated artefacts, and OS files from ever being committed.
 
 ```bash
 cat > ~/humor-memory-game/.gitignore << 'EOF'
@@ -321,14 +321,8 @@ Open your local terminal and run the following command:
 ```bash
 scp /path/to/local/file.txt username@vm_ip_address:/path/to/remote/destination/
 
-
+# Example
 scp ~/"KubeCraft Example Vault/1 Projects/Devops Projects/Humor Memory Game Project/2.0 Developer Setup Guide/GIT_WORKFLOW.md" developer@192.168.30.10:~/humor-memory-game/docs/
-
-
-scp ~/"KubeCraft Example Vault/1 Projects/Devops Projects/Humor Memory Game Project/2.0 Developer Setup Guide/DEVELOPER_SETUP.md" developer@192.168.30.10:~/humor-memory-game/docs/
-
-
-
 ```
 
 

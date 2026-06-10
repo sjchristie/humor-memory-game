@@ -70,10 +70,12 @@ else
     echo "❌ [API FAILURE] Backend is up but refusing data routes. Check your .env and database connection."
 fi
 EOF
-
-chmod +x ~/humor-memory-game/diagnose.sh
 ```
 
+Make it executable
+```bash
+chmod +x ~/humor-memory-game/diagnose.sh
+```
 Run it:
 
 ```bash

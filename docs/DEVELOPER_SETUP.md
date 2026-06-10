@@ -893,7 +893,7 @@ styles/
 ```bash
 cd ~/humor-memory-game/backend
 
-npm start
+npm start dev
 ```
 
 **Expected output:**
