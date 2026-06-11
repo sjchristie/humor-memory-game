@@ -375,9 +375,11 @@ Params: [ 'daily-challenge' ]
     at async /home/developer/humor-memory-game/backend/routes/game.js:434:26 {
 ```
 
-The error message referenced `game.js` and showed `"daily-challenge"` being passed as a UUID to the database. This indicated the wrong route was handling the request.
+**Root cause:** In Express, when the same route path pattern is defined more than once, the first definition wins. If the dynamic `/:gameId` route is defined before `/daily-challenge`, Express treats `"daily-challenge"` as a UUID parameter, which fails database validation.
 
-**How the fix was identified:** Running the following command revealed both the wrong route order and a duplicate `/:gameId` route definition:
+**Fix:** Open `backend/routes/game.js` and ensure:
+1. The `/daily-challenge` static route is defined **before** any `/:gameId` dynamic routes.
+2. There is only **one** `/:gameId` route block in the file.
 
 ```bash
 grep -n "router.get" ~/humor-memory-game/backend/routes/game.js
@@ -388,55 +390,41 @@ grep -n "router.get" ~/humor-memory-game/backend/routes/game.js
 ```
 425:router.get('/:gameId', async (req, res) => {
 485:router.get('/daily-challenge', async (req, res) => {
-532:router.get('/:gameId', async (req, res) => {
 ```
 
 This confirmed two problems:
 1. `/:gameId` was defined **before** `/daily-challenge` — Express was treating `"daily-challenge"` as a UUID parameter
-2. `/:gameId` was defined **twice** — the duplicate needed to be removed
 
-**Root cause:** In Express, when the same route path pattern is defined more than once, the first definition wins. If the dynamic `/:gameId` route is defined before `/daily-challenge`, Express treats `"daily-challenge"` as a UUID parameter, which fails database validation.
+**Root cause:**  If the dynamic `/:gameId` route is defined before `/daily-challenge`, Express treats `"daily-challenge"` as a UUID parameter, which fails database validation.
 
-**Fix:** Open `backend/routes/game.js` and ensure:
-1. There is only **one** `/:gameId` route block in the file — delete the first duplicate
-2. The `/daily-challenge` static route is defined **before** the `/:gameId` dynamic route
+**Fix:** Open `backend/routes/game.js` 
 
 ```bash
 vim ~/humor-memory-game/backend/routes/game.js
 ```
 
-**Step 1 — Find and delete the first `/:gameId` block:**
-
-In vim, search for the first occurrence of `/:gameId`:
+Confirm you are on the correct block by checking the surrounding comment header reads:
 
 ```
-/router.get('\/:gameId'
+// ========================================
+// GET GAME DETAILS
+// ========================================
 ```
 
-Press `Enter` to jump to it. Then:
+To move the block of code
+- Put the cursor on the first line containing
+   // ========================================
+- Press **`V`** (capital V) for Visual Line Mode to select entire block of code.
+-  Use your down arrow key or movement key (`j`)  to select the entire code block of the GET GAME DETAILS
+- Press **`d`** to cut the highlighted selection. (The block will disappear and be saved to your default register.)
+- Use your down arrow key or movement key (`j`)   to move below the 
+GET GAME DETAILS code block.
+- **Paste the text:** Press **`p`** (lowercase) to paste the text _after_ the cursor
+- :wq to save the file
 
-- Press **`V`** (capital V) to enter Visual Line Mode
-- Use `j` to select downward through all lines of the entire `/:gameId` block including its closing `});`
-- Press **`d`** to delete the selected lines
+---
 
-**Step 2 — Verify `/daily-challenge` is now above `/:gameId`:**
-
-Without leaving vim, search to confirm the order:
-
-```
-/router.get
-```
-
-Press `n` to step through each `router.get` occurrence and confirm `/daily-challenge` appears before `/:gameId`.
-
-**Step 3 — Save and exit:**
-
-```
-:wq
-```
-
-**Step 4 — Verify the correct order outside vim:**
-
+Verify the correct order
 ```bash
 grep -n "router.get" ~/humor-memory-game/backend/routes/game.js
 ```
@@ -448,7 +436,8 @@ grep -n "router.get" ~/humor-memory-game/backend/routes/game.js
 472:router.get('/:gameId', async (req, res) => {
 ```
 
-**Verification:** ✅ `/daily-challenge` appears before `/:gameId`, one instance of each
+
+**Verification:** ✅ `/daily-challenge` appears before `/:gameId`
 
 The correct order:
 

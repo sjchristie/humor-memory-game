@@ -322,7 +322,7 @@ Open your local terminal and run the following command:
 scp /path/to/local/file.txt username@vm_ip_address:/path/to/remote/destination/
 
 # Example
-scp ~/"KubeCraft Example Vault/1 Projects/Devops Projects/Humor Memory Game Project/2.0 Developer Setup Guide/GIT_WORKFLOW.md" developer@192.168.30.10:~/humor-memory-game/docs/
+scp ~/"Project/1 Projects/Devops Projects/Humor Memory Game Project/2.0 Developer Setup Guide/GIT_WORKFLOW.md" developer@192.168.30.10:~/humor-memory-game/docs/
 ```
 
 

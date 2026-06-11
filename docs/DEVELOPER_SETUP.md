@@ -21,7 +21,7 @@
 
 **Companion documents:**
 - [`docs/GIT_WORKFLOW.md`](docs/GIT_WORKFLOW.md) — Two-commit Git strategy: push raw source after cloning, then push the working application after all fixes are verified
-- [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) — Known issues, diagnostic script, and decision tree
+- [`docs/TROUBLESHOOTING.md`](4%20Archive/docs/TROUBLESHOOTING.md) — Known issues, diagnostic script, and decision tree
 
 ---
 
@@ -968,7 +968,7 @@ You should see the Humor Memory Game load in the browser.
 
 > **If you see a "Cannot Connect to Game Server" error**, the most common cause is running `npm run build` instead of `./build-local.sh`. Re-run `./build-local.sh` then hard-refresh the browser with **Ctrl+Shift+R**.
 >
-> See [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) for full diagnosis steps.
+> See [`docs/TROUBLESHOOTING.md`](4%20Archive/docs/TROUBLESHOOTING.md) for full diagnosis steps.
 
 **Verification:** ✅ Game loads in browser
 
@@ -994,7 +994,7 @@ curl http://localhost:3001/api/health
 
 **What this confirms:** Backend running, port 3001 listening, database reachable, API endpoints functional.
 
-❌ If this fails: see **Issue 2** or **Issue 5** in [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
+❌ If this fails: see **Issue 2** or **Issue 5** in [`docs/TROUBLESHOOTING.md`](4%20Archive/docs/TROUBLESHOOTING.md)
 
 **Verification:** ✅ API is responsive
 
@@ -1017,7 +1017,7 @@ psql -U gameuser -d humor_memory_game -c "SELECT COUNT(*) FROM users;"
 
 **What this confirms:** PostgreSQL running, `gameuser` can authenticate, database exists, tables readable.
 
-❌ If this fails: see **Issue 5** in [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
+❌ If this fails: see **Issue 5** in [`docs/TROUBLESHOOTING.md`](4%20Archive/docs/TROUBLESHOOTING.md)
 
 **Verification:** ✅ Database accessible
 
@@ -1037,7 +1037,7 @@ PONG
 
 **What this confirms:** Redis running and responding.
 
-❌ If this fails: see **Issue 4** in [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
+❌ If this fails: see **Issue 4** in [`docs/TROUBLESHOOTING.md`](4%20Archive/docs/TROUBLESHOOTING.md)
 
 **Verification:** ✅ Cache accessible
 
@@ -1051,7 +1051,7 @@ curl -i http://localhost:3001/api/game/daily-challenge
 
 **Expected output:** HTTP 200 with a JSON challenge object.
 
-> **⚠️ Known issue:** If the backend logs show `invalid input syntax for type uuid: "daily-challenge"`, an Express route ordering bug exists in `game.js`. The `/daily-challenge` static route must be defined **before** the dynamic `/:gameId` route. See **Issue: Express Route Collision** in [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) for the fix.
+> **⚠️ Known issue:** If the backend logs show `invalid input syntax for type uuid: "daily-challenge"`, an Express route ordering bug exists in `game.js`. The `/daily-challenge` static route must be defined **before** the dynamic `/:gameId` route. See **Issue: Express Route Collision** in [`docs/TROUBLESHOOTING.md`](4%20Archive/docs/TROUBLESHOOTING.md) for the fix.
 
 **Verification:** ✅ Daily challenge endpoint responding
 
