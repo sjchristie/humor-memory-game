@@ -240,7 +240,7 @@ async function startNewGame() {
     const gameData = {
       username,
       difficulty,
-      categories: selectedCategories.length > 0 ? selectedCategories : null,
+      categories: selectedCategories.length > 0 ? selectedCategories : [],
     };
 
     const result = await apiRequest('/game/start', {
