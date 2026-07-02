@@ -155,3 +155,8 @@ BEGIN
     RAISE NOTICE '🚀 Ready for some hilarious memory gaming! 🃏✨';
     RAISE NOTICE '🎮 ========================================';
 END $$;
+
+-- BUG-003 FIX: Explicit search_path for gameuser
+-- Ensures all future fresh deployments find tables in public schema
+-- without relying on PostgreSQL defaults.
+ALTER ROLE gameuser SET search_path TO public;
