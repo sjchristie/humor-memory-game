@@ -2,19 +2,19 @@
 // Comprehensive test suite for backend API endpoints
 
 const request = require('supertest');
-const app = require('../backend/server');
+const app = require('../../server');
 
 // Mock database and Redis for testing
-jest.mock('../backend/models/database');
-jest.mock('../backend/utils/redis');
+jest.mock('../../models/database');
+jest.mock('../../utils/redis');
 
-const database = require('../backend/models/database');
-const redisClient = require('../backend/utils/redis');
+const database = require('../../models/database');
+const redisClient = require('../../utils/redis');
 
 // Test data
 const testUser = {
   username: 'testplayer',
-  email: 'talk2osomudeya@gmail.com',
+  email: 'test@example.com',
   displayName: 'Test Player',
 };
 
